@@ -1,0 +1,13 @@
+<h3>Todo List: </h3>
+
+
+<p *ngIf="!todoItems.length"> Loading..!</p>
+
+<ul class="todos">
+    @for (todo of todoItems; track todo.id) {
+        <li class = "todos__item">
+            <input id="todo-{{ todo.id }}" type="checkbox" [value]="todo.completed" />
+            <label for="todo-{{todo}}">{{todo.title}}</label>
+        </li>
+    }
+</ul>

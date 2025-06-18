@@ -1,0 +1,36 @@
+header{
+    display: flex;
+    padding-inline: 16px;
+    padding-block: 8px;
+    background: darkslategrey;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+nav{
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span{
+        cursor: pointer;
+        &:hover{
+            color: orange;
+        }
+    }
+
+    ul{
+        list-style: none;
+
+        li{
+            cursor: pointer;
+            &:hover{
+                color: orange;
+            }
+        }
+    }
+}
+
