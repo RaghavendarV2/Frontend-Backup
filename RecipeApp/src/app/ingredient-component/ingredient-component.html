@@ -1,0 +1,97 @@
+<h2>Add Ingredient</h2>
+<form (ngSubmit)="add()">
+  <input
+    [(ngModel)]="newIngredient.ingredientName"
+    name="ingredientName"
+    placeholder="Name"
+    required
+  />
+  <input
+    [(ngModel)]="newIngredient.quantity"
+    name="quantity"
+    placeholder="Quantity"
+    required
+  />
+  <button type="submit">Create</button>
+</form>
+
+<hr/>
+
+<h2>Find / Edit Ingredient</h2>
+<input
+  [(ngModel)]="searchId"
+  name="searchId"
+  type="number"
+  placeholder="Enter ID"
+  (keyup.enter)="findById()"
+/>
+<button (click)="findById()">Search</button>
+
+<div *ngIf="ingredientById">
+  <p><strong>ID:</strong> {{ ingredientById.ingredientId }}</p>
+  <div>
+    <label>
+      Name:
+      <input
+        [(ngModel)]="editIngredient.ingredientName"
+        name="editName"
+        required
+      />
+    </label>
+  </div>
+  <div>
+    <label>
+      Quantity:
+      <input
+        [(ngModel)]="editIngredient.quantity"
+        name="editQuantity"
+        required
+      />
+    </label>
+  </div>
+  <button (click)="update()">Update</button>
+</div>
+
+<hr/>
+
+<!-- implemented viewmode with ngif -->
+<label for ="viewMode"> select view mode: </label>
+<select id="viewMode" [(ngModel)]="viewMode">
+  <option value="list">List</option>
+  <option value="table">Table</option>
+</select>
+
+<h2>All Ingredients</h2>
+<div *ngIf="viewMode === 'table'">
+  <table *ngIf="ingredients.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ing of ingredients">
+        <td>{{ ing.ingredientId }}</td>
+        <td>{{ ing.ingredientName }}</td>
+        <td>{{ ing.quantity }}</td>
+        <td>
+          <button (click)="delete(ing.ingredientId!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="ingredients.length === 0">No ingredients found.</p>
+</div>
+
+
+<div *ngIf="viewMode === 'list'">
+  <ol *ngIf="ingredients.length > 0">
+    <li *ngFor="let ing of ingredients">
+      {{ ing.ingredientId }} - {{ ing.ingredientName }} - {{ ing.quantity }}
+    </li>
+  </ol>
+  <p *ngIf="ingredients.length === 0">No ingredients found.</p>
+</div>

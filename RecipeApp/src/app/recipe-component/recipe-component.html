@@ -1,0 +1,117 @@
+<h1>{{greetmsg}}</h1>
+
+<h2>All Recipes</h2>
+
+<table *ngIf="recipes.length > 0; else noRecipes" class="recipe-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Cooking Time</th>
+      <th>Category</th>
+      <th>Ingredients</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let recipe of recipes">
+      <td>{{ recipe.recipeName }}</td>
+      <td>{{ recipe.description }}</td>
+      <td>{{ recipe.cookingTime }} min</td>
+      <td>{{ recipe.categoryDTO?.categoryName }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let ing of recipe.ingredients">
+            {{ ing.ingredientName }} ({{ ing.quantity }})
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ng-template #noRecipes>
+  <p>No recipes found.</p>
+</ng-template>
+
+
+<hr>
+
+<!-- Add New Recipe Form -->
+<h3>Add New Recipe</h3>
+<form (ngSubmit)="addRecipe()" #recipeForm="ngForm" class="form-grid">
+  <label>
+    Name:
+    <input [(ngModel)]="newRecipe.recipeName" name="name" required>
+  </label>
+  <label>
+    Description:
+    <input [(ngModel)]="newRecipe.description" name="description" required>
+  </label>
+  <label>
+    Cooking Time (minutes):
+    <input [(ngModel)]="newRecipe.cookingTime" name="cookingTime" type="number" required>
+  </label>
+  <label>
+    Category ID:
+    <input [(ngModel)]="newRecipe.categoryId" name="categoryId" type="number" required>
+  </label>
+  <label>
+    Ingredient IDs (comma separated):
+    <input [(ngModel)]="ingredientIdsInput" name="ingredientIds" required
+           (ngModelChange)="onIngredientIdsChange($event)">
+  </label>
+  <button type="submit" [disabled]="recipeForm.invalid">Add Recipe</button>
+</form>
+
+<hr>
+
+<!-- Search Recipe by ID -->
+<h3>Find Recipe by ID</h3>
+<form (ngSubmit)="findRecipeById()" #searchForm="ngForm">
+  <input [(ngModel)]="searchId" name="searchId" type="number" placeholder="Enter Recipe ID" required>
+  <button type="submit" [disabled]="searchForm.invalid">Search</button>
+</form>
+
+<div *ngIf="foundRecipe">
+  <h4>Recipe Details</h4>
+  <p><strong>Name:</strong> {{ foundRecipe.recipeName }}</p>
+  <p><strong>Description:</strong> {{ foundRecipe.description }}</p>
+  <p><strong>Cooking Time:</strong> {{ foundRecipe.cookingTime }} minutes</p>
+  <p><strong>Category:</strong> {{ foundRecipe.categoryDTO?.categoryName }}</p>
+  <p><strong>Ingredients:</strong></p>
+  <ul>
+    <li *ngFor="let ing of foundRecipe.ingredients">
+      {{ ing.ingredientName }} ({{ ing.quantity }})
+    </li>
+  </ul>
+</div>
+<div *ngIf="searchId && !foundRecipe && searchAttempted">
+  <p style="color: red;">No recipe found with that ID.</p>
+</div>
+
+
+<h2>Filter Recipes by Category</h2>
+
+<select [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()">
+  <option [ngValue]="null">-- All Categories --</option>
+  <option *ngFor="let cat of categories" [ngValue]="cat.categoryId">
+    {{ cat.categoryName }}
+  </option>
+</select>
+
+<!-- Optional: Add some basic styling -->
+<style>
+.recipe-card {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1em;
+  margin-bottom: 1em;
+  background: #fafafa;
+}
+.form-grid label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+form {
+  margin-bottom: 1em;
+}
+</style>

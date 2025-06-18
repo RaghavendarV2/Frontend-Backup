@@ -1,0 +1,53 @@
+<p>category-component works!</p>
+
+<h2>Add category</h2>
+<form (ngSubmit)="addCategory()">
+  <input
+    [(ngModel)]="newCategory.categoryName"
+    name="categoryName"
+    placeholder="Category Name"
+    required
+  />
+  <button type="submit">Add Category</button>
+</form>
+
+<h2>Find Category by ID</h2>
+<input
+  [(ngModel)]="searchId"
+  name="searchId"
+  type="number"
+  placeholder="Enter ID"
+  (keyup.enter)="getCategoryById()"
+/>
+<button (click)="getCategoryById()">Search</button>
+
+<div *ngIf="categoryById">
+  <p><strong>ID:</strong> {{ categoryById.categoryId }}</p>
+  <p><strong>Name:</strong> {{ categoryById.categoryName }}</p>
+</div>
+
+<hr />
+
+<h2>All Categories</h2>
+<table *ngIf="categories.length > 0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cat of categories">
+      <td>{{ cat.categoryId }}</td>
+      <td>{{ cat.categoryName }}</td>
+      <td>
+        <button (click)="deleteCategory(cat.categoryId!)">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="categories.length === 0">No categories found.</p>
