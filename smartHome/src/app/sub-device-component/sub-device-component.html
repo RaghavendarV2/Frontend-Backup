@@ -1,0 +1,88 @@
+<h1> Devices Main Page </h1>
+
+<h2> Add a Device </h2>
+<form (ngSubmit)="addDevice()" addForm="ngForm">
+    <label>Enter Device name: </label>
+    <input name="deviceName" [(ngModel)]="newDevice.deviceName" required> <br />
+
+    <label>Enter Device Type: </label>
+    <input name="deviceType" [(ngModel)]="newDevice.deviceType" required> <br />
+
+    <label>Enter Device Room: </label>
+    <input name="deviceRoom" [(ngModel)]="newDevice.deviceRoom" required> <br />
+
+    <label>Enter Device Status: </label>
+    <input name="deviceStatus" [(ngModel)]="newDevice.status" required> <br />
+
+    <label>Enter Device Category ID: </label>
+    <input name="deviceCatId" [(ngModel)]="newDevice.deviceCategoryId" required> <br />
+
+    <button type="submit">Add Device</button>
+
+</form>
+
+
+<h2>List Of Devices</h2>
+<table border="1" [cellPadding]="4">
+    <thead>
+        <th> ID </th>
+        <th> Name </th>
+        <th> Room </th>
+        <th> Status </th>
+        <th> Type </th>
+        <th> Category </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let device of devices">
+            <td>{{device.deviceId}}</td>
+            <td>{{device.name}}</td>
+            <td>{{device.room}}</td>
+            <td>{{device.status}}</td>
+            <td>{{device.type}}</td>
+            <td>{{device.deviceCategory?.categoryName}}</td>
+    </tbody>
+</table>
+
+<h2> Search a Device By ID: </h2>
+<form (ngSubmit)="searchDevice()" searchForm="ngForm">
+    <label> Enter Device ID </label>
+    <input name="searchId" [(ngModel)]="searchId" required/>
+    <button type="submit">Search</button>
+</form>
+<div *ngIf="searchAttempted">
+    <p><strong>ID: </strong>{{foundDevice?.deviceId}}</p>
+    <p><strong>Name: </strong>{{foundDevice?.name}}</p>
+    <p><strong>Room: </strong>{{foundDevice?.room}}</p>
+    <p><strong>Status: </strong>{{foundDevice?.status}}</p>
+    <p><strong>Type: </strong>{{foundDevice?.type}}</p>
+    <p><strong>Category: </strong>{{foundDevice?.deviceCategory?.categoryName}}</p>
+</div>
+
+
+<h2> Filter Devices By Category: </h2>
+<form (ngSubmit)="filterByCat()" filterForm="ngForm">
+    <label>Enter Category Name: </label>
+    <input name="catName" [(ngModel)]="catName" required>
+    <button type="submit">Search</button>
+</form>
+<div *ngIf="catMatched">
+    <table border="1" [cellPadding]="4">
+        <thead>
+            <th> ID </th>
+            <th> Name </th>
+            <th> Room </th>
+            <th> Status </th>
+            <th> Type </th>
+            <th> Category </th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let device of filtered">
+                <td>{{device.deviceId}}</td>
+                <td>{{device.name}}</td>
+                <td>{{device.room}}</td>
+                <td>{{device.status}}</td>
+                <td>{{device.type}}</td>
+                <td>{{device.deviceCategory?.categoryName}}</td>
+        </tbody>
+    </table>
+</div>

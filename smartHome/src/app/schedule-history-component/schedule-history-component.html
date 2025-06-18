@@ -1,0 +1,57 @@
+<h1>Schedule History</h1>
+
+<h2>Add Schedule Execution History</h2>
+
+<form (ngSubmit)="addHistory()" #historyForm="ngForm" novalidate>
+  <div>
+    <label for="executionTime">Execution Time:</label><br />
+    <input 
+      type="datetime-local" 
+      id="executionTime" 
+      name="executionTime" 
+      [(ngModel)]="newHistory.executionTime" 
+      required 
+      #executionTime="ngModel" />
+    <div *ngIf="executionTime.invalid && executionTime.touched" style="color:red;">
+      Execution Time is required.
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <label for="status">Status:</label><br />
+    <input 
+      type="text" 
+      id="status" 
+      name="status" 
+      [(ngModel)]="newHistory.status" 
+      required 
+      minlength="3"
+      #status="ngModel" />
+    <div *ngIf="status.invalid && status.touched" style="color:red;">
+      Status is required (min 3 characters).
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <label for="scheduleId">Schedule ID:</label><br />
+    <input 
+      type="number" 
+      id="scheduleId" 
+      name="scheduleId" 
+      [(ngModel)]="newHistory.scheduleId" 
+      required 
+      min="1"
+      #scheduleId="ngModel" />
+    <div *ngIf="scheduleId.invalid && scheduleId.touched" style="color:red;">
+      Valid Schedule ID is required.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="historyForm.invalid" style="margin-top: 15px;">
+    Add History
+  </button>
+</form>
+
+<div *ngIf="successMsg" style="margin-top: 20px; color: green; font-weight: bold;">
+  {{ successMsg }}
+</div>

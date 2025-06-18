@@ -1,0 +1,19 @@
+<h1> Category Page </h1>
+<br />
+<h2> Add Category </h2>
+<form (ngSubmit)="addCategory()" categoryFrom="ngForm">
+    <label> Enter Category Name: </label>
+    <input name="categoryName" [(ngModel)]="newCategory.categoryName"> <br />
+    <button type="submit"> Add </button>
+</form>
+
+<h2> Search Category By ID: </h2>
+<form (ngSubmit)="getCategoryById()" searchForm="ngForm">
+    <label>Enter Category Id: </label>
+    <input name="searchId" [(ngModel)]="searchId"> <br />
+    <button type="submit"> Search </button>
+</form>
+
+<div *ngIf="searchAttempted">
+    <p><strong>Category Name: </strong>{{foundCategory?.categoryName}}</p>
+</div>

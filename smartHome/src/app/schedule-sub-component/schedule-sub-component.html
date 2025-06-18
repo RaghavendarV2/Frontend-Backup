@@ -1,0 +1,75 @@
+<h1>Device Schedules</h1>
+<h2>Add a Device's Schedule here</h2>
+<form (ngSubmit)="addSchedule()" #addForm="ngForm">
+    <label>Select Device: </label>
+    <select name="deviceId" [(ngModel)]="newSchedule.deviceId" required>
+        <option value="" disabled selected>Select a device</option>
+        <option *ngFor="let device of devices" [value]="device.deviceId">
+            {{device.name}} ({{device.room}})
+        </option>
+    </select>
+    <br />
+
+    <label>Enter Action: </label>
+    <input name="action" [(ngModel)]="newSchedule.action" required> <br />
+
+    <label>Enter Schedule Time: </label>
+    <input name="schTime" [(ngModel)]="newSchedule.scheduleTime" required> <br />
+
+    <button type="submit"> Add </button>
+</form>
+<div *ngIf="successMsg">
+    <p>{{successMsg}}</p>
+</div>
+
+<br />
+
+<h2>Search Schedule By Id:</h2>
+<form (ngSubmit)="searchSchedule()" searchForm="ngForm">
+    <label>Enter Schedule Id: </label>
+    <input name="searchId" [(ngModel)]="searchId" required>
+    <button type="submit">Search</button>
+</form>
+<div *ngIf="searchAttempted">
+    <p><strong>Schedule Id: </strong>{{foundSchedule?.scheduleId}}</p>
+    <p><strong>Action : </strong>{{foundSchedule?.action}}</p>
+    <p><strong>Schedule Time </strong>{{foundSchedule?.scheduleTime}}</p>
+    <p><strong>Device name: </strong>{{foundSchedule?.device?.name}}</p>
+    <p><strong>Device Room: </strong>{{foundSchedule?.device?.room}}</p>
+    <p><strong>Device Category: </strong>{{foundSchedule?.device?.deviceCategory?.categoryName}}</p>
+    <p><strong>Device name: </strong>{{foundSchedule?.device?.name}}</p>
+</div>
+
+<br />
+
+<h2>Search Schedules by Device</h2>
+<form (ngSubmit)="getSchedulesByDevice()" filterForm="ngForm">
+    <label> Choose device here</label>
+    <select name="deviceId" [(ngModel)]="searchDeviceId" required>
+        <option value="" disabled selected>Select a device</option>
+        <option *ngFor="let device of devices" [value]="device.deviceId">
+            {{device.name}} ({{device.room}})
+        </option>
+    </select>
+
+    <button type="submit">Search</button>
+</form>
+<br />
+<div *ngIf="deviceHit">
+    <table border="1" [cellPadding]="4">
+        <thead>
+            <th>Schedule Id</th>
+            <th>Device Id</th>
+            <th>Action</th>
+            <th>Schedule time</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let schedule of filteredList">
+                <td>{{schedule.scheduleId}}</td>
+                <td>{{schedule.deviceId}}</td>
+                <td>{{schedule.action}}</td>
+                <td>{{schedule.scheduleTime}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
