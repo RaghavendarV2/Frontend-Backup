@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>
+            Hello Page
+        </title>
+        <script>
+            var empId = 1;
+            var empName = "Raghav";
+            console.log(`Emp Id is ${empId} and Emp Name is ${empName}`);
+
+            let x = 15+2;
+            console.log(x);
+            
+            //this is object
+            const person = {firstName:"John", lastName:"Doe"};
+            console.log(person.firstName)
+
+            //functions
+            function squaretheno(n){
+                return n*n;
+            }
+
+            console.log("using squaretheno function: "+squaretheno(5));
+
+            //ES6 Arrow function - another way of defining functions
+            let sqrno = (n) => n*n;
+            console.log("using ES6 function: "+sqrno(6));
+
+
+            //HIGHER ORDER COMPONENTS
+            function fx(f1,f2,n,m){
+                return f1(n) + f2(m);
+            }
+            
+            let callfx = fx(squaretheno, sqrno, 5, 6)
+            console.log(`executed higher order: ${callfx}`);
+        </script>
+    </head>
+    <body>
+        <h1>Yo wassup</h1>
+    </body>
+</html>
