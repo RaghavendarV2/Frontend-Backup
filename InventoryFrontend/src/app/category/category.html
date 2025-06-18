@@ -1,0 +1,49 @@
+<p>category works!</p>
+
+<h2>Add a Category here</h2>
+<form (ngSubmit)="addCategory()" #categoryForm="ngForm">
+    <label> Category Name: </label>
+    <input id="categoryName" name="categoryName" [(ngModel)]="newCategory.category_name" required/>
+    <br />
+
+    <button type="submit"> Add Category </button>
+</form>
+
+<br/>
+<br/>
+
+<h2>Search Category</h2>
+<form (ngSubmit)="getCategorybyId()" #searchForm="ngForm">
+    <label> Enter Category Id: </label>
+    <input name="searchId" [(ngModel)]="searchId">
+    <button type="submit"> Search </button>
+</form>
+<div *ngIf="searchAttempted">
+    <p><strong>ID: </strong>{{foundCategory?.category_id}}</p>
+    <p><strong>Name: </strong>{{foundCategory?.category_name}}</p>
+</div>
+
+<br/>
+<br/>
+
+<h2>All Categories</h2>
+<table border="1" [cellPadding]="4">
+    <thead>
+        <tr>
+            <th> Category ID </th>
+            <th> Category Name </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let category of categories">
+            <td>{{category.category_id}}</td>
+            <td>{{category.category_name}}</td>
+            <td>
+                <button *ngIf="category.category_id !== undefined"
+                (click)="deleteCategory(category.category_id)">
+                  Delete
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
