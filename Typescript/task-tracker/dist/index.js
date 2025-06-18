@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Completed_1 = require("./models/Completed");
+const Pending_1 = require("./models/Pending");
+const Priority_1 = require("./models/Priority");
+const TaskImplementation_1 = require("./models/TaskImplementation");
+const user1 = new TaskImplementation_1.TaskImplementation("Raghav");
+const task1 = new Pending_1.Pending("Complete the juice", Priority_1.Priority.priorityHigh);
+const task2 = new Completed_1.Completed("Jump exercise", Priority_1.Priority.priorityMedium);
+user1.addTask(task1);
+user1.addTask(task2);
+console.log(user1.getAllTasks());
+console.log(user1.editTask('Jump exercise', new Pending_1.Pending("Jump exercise", Priority_1.Priority.priorityHigh)));
+user1.deleteTask('Jump exercise');
+console.log(user1.getAllTasks());
