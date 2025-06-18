@@ -1,0 +1,120 @@
+<h2>Task Management</h2>
+
+<div *ngIf="message" style="color: green; margin-bottom: 1rem;">
+  {{ message }}
+</div>
+
+<!-- Create Task Form -->
+<form (ngSubmit)="createTask()" #taskForm="ngForm">
+  <fieldset>
+    <legend>Create New Task</legend>
+    <label>
+      Title:
+      <input type="text" name="taskTitle" [(ngModel)]="newTask.taskTitle" required />
+    </label>
+    <br />
+
+    <label>
+      Description:
+      <input type="text" name="description" [(ngModel)]="newTask.description" required />
+    </label>
+    <br />
+
+    <label>
+      Status:
+      <select name="status" [(ngModel)]="newTask.status" required>
+        <option *ngFor="let status of availableStatuses" [value]="status">{{ status }}</option>
+      </select>
+    </label>
+    <br />
+
+    <label>
+      Assigned User ID:
+      <input type="number" name="assignedUserId" [(ngModel)]="newTask.assignedUserId" required />
+    </label>
+    <br />
+
+    <label>
+      Project ID:
+      <input type="number" name="projectId" [(ngModel)]="newTask.projectId" required />
+    </label>
+    <br />
+
+    <button type="submit" [disabled]="taskForm.invalid">Create Task</button>
+  </fieldset>
+</form>
+
+<hr />
+
+
+<br/>
+<br/>
+<h2>Search Tasks by Project</h2>
+<form (ngSubmit)="searchTasksByProject()" #searchForm="ngForm">
+  <label>Project ID:</label>
+  <input type="number" name="searchProjectId" [(ngModel)]="searchProjectId" required />
+  <button type="submit">Search</button>
+</form>
+
+<div *ngIf="message" style="color: green; margin: 1em 0;">{{ message }}</div>
+
+<table *ngIf="tasks.length > 0" border="1" cellpadding="4" style="width:100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Assigned User</th>
+      <th>Project</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.taskTitle }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.status }}</td>
+      <td>{{ task.assignedUser?.userName || ('ID: ' + task.assignedUser?.userId) || 'N/A' }}</td>
+      <td>{{ task.project?.projectTitle || ('ID: ' + task.project?.projectId) || 'N/A' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+<br/>
+
+<!-- Task List Table -->
+<h3>Updates Status here</h3>
+<table border="1" cellpadding="4" style="width:100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Assigned User</th>
+      <th>Project</th>
+      <th>Update Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.taskTitle }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.status }}</td>
+      <td>
+        {{ task.assignedUser?.userName || ('ID: ' + task.assignedUser?.userId) || 'N/A' }}
+      </td>
+      <td>
+        {{ task.project?.projectTitle || ('ID: ' + task.project?.projectId) || 'N/A' }}
+      </td>
+      <td>
+        <ng-container *ngIf="task.status as statusValue">
+            <select [(ngModel)]="task.status" (change)="updateTaskStatus(task, task.status)">
+              <option *ngFor="let status of availableStatuses" [value]="status">{{ status }}</option>
+            </select>
+          </ng-container>
+          <span *ngIf="!task.status">N/A</span>
+          
+      </td>
+    </tr>
+  </tbody>
+</table>

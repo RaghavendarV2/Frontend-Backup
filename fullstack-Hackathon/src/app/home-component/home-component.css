@@ -1,0 +1,25 @@
+
+body {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: darkolivegreen;
+  }
+  
+  a {
+    color: rgb(17, 0, 255);
+  }
+  
+  a:hover {
+    color: green;
+  }
+  

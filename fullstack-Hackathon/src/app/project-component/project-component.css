@@ -1,0 +1,15 @@
+label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 15px;
+}
+
+input{
+    text-align: justify;
+}
+
+button{
+    margin-left: 20px;
+}
