@@ -1,0 +1,46 @@
+<h1> Add Booking</h1>
+<form #form="ngForm" (ngSubmit)="onSubmit()" style="max-width: 400px; margin: auto;">
+ 
+  <div style="margin-bottom: 10px;">
+    <label for="flightId">Flight ID</label><br />
+    <input type="number" id="flightId" name="flightId" [(ngModel)]="booking.flightId" required />
+  </div>
+
+  <div style="margin-bottom: 10px;">
+    <label for="bookingDate">Booking Date</label><br />
+    <input type="datetime-local" id="bookingDate" name="bookingDate" [(ngModel)]="booking.bookingDate" required />
+  </div>
+
+  <div style="margin-bottom: 10px;">
+    <label for="seatNumber">Seat Number</label><br />
+    <input type="text" id="seatNumber" name="seatNumber" [(ngModel)]="booking.seatNumber" required />
+  </div>
+
+  <div style="margin-bottom: 10px;">
+    <label for="status">Status</label><br />
+    <select id="status" name="status" [(ngModel)]="booking.status" required>
+      <option value="" disabled>Select status</option>
+      <option value="Booked">Booked</option>
+      <option value="Cancelled">Cancelled</option>
+      <option value="CheckedIn">CheckedIn</option>
+    </select>
+  </div>
+
+  <div style="margin-bottom: 10px;">
+    <label for="paymentId">Payment ID:</label>
+<select
+  id="paymentId"
+  [(ngModel)]="booking.payment"
+  name="payment"
+  required
+>
+  <option value="" disabled selected>Select Payment ID</option>
+  <option *ngFor="let payment of paymentList" [ngValue]="payment">{{ payment.id }}</option>
+</select>
+
+
+
+     </div>
+
+  <button type="submit">Submit</button>
+</form>

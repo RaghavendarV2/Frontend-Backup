@@ -1,0 +1,36 @@
+<h1>View Payments</h1>
+<div>
+  <input type="number" [(ngModel)]="paymentId" placeholder="Enter Payment ID" />
+  <button (click)="fetchPayment()">View Payment</button>
+
+  <div *ngIf="payment">
+    <h3>Payment Details:</h3>
+    {{ payment  }}
+    <p>{{payment.amount}}</p>
+     <p>{{payment.paymentDate}}</p>
+     <h3>{{payment.paymentMethod}}</h3>
+  </div>
+</div>
+<h3>All Payments</h3>
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Booking ID</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Method</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of payments">
+      <td>{{ p.id }}</td>
+      <td>{{ p.bookingId }}</td>
+      <td>{{ p.amount }}</td>
+      <td>{{ p.paymentDate }}</td>
+      <td>{{ p.paymentMethod }}</td>
+      <td>{{ p.paymentStatus }}</td>
+    </tr>
+  </tbody>
+</table>

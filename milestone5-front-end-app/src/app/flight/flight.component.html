@@ -1,0 +1,121 @@
+<p>flight works!</p>
+
+<a href="/airports"> Go To Airports</a> <br/>
+
+<!-- Add Flight Form -->
+<h2>Add Flight</h2>
+<form (ngSubmit)="addFlight()" #flightForm="ngForm">
+  <label>
+    Flight Number:
+    <input name="flightNumber" [(ngModel)]="newFlight.flightNumber" required />
+  </label>
+  <br>
+
+  <label>
+    Departure Airport ID:
+    <input name="departureAirportId" type="number" [(ngModel)]="newFlight.departureAirportId" required />
+  </label>
+  <br>
+
+  <label>
+    Arrival Airport ID:
+    <input name="arrivalAirportId" type="number" [(ngModel)]="newFlight.arrivalAirportId" required />
+  </label>
+  <br>
+
+  <label>
+    Departure Time:
+    <input name="departureTime" type="datetime-local" [(ngModel)]="newFlight.departureTime" required />
+  </label>
+  <br>
+
+  <label>
+    Arrival Time:
+    <input name="arrivalTime" type="datetime-local" [(ngModel)]="newFlight.arrivalTime" required />
+  </label>
+  <br>
+
+  <label>
+    Seat Capacity:
+    <input name="seatCapacity" type="number" [(ngModel)]="newFlight.seatCapacity" required />
+  </label>
+  <br>
+
+  <label>
+    Available Seats:
+    <input name="availableSeats" type="number" [(ngModel)]="newFlight.availableSeats" required />
+  </label>
+  <br>
+
+  <label>
+    Status:
+    <select name="status" [(ngModel)]="newFlight.status" required>
+        <option value="Scheduled">Scheduled</option>
+        <option value="Cancelled">Cancelled</option>
+        <option value="Delayed">Delayed</option>
+    </select>
+  </label>
+  <br/>
+  <button type="submit" [disabled]="flightForm.invalid">Add Flight</button>
+</form>
+
+<hr />
+
+<!-- Search Flight by ID -->
+<h2>Search Flight by ID</h2>
+<form (ngSubmit)="findFlightById()">
+  <input type="number" [(ngModel)]="searchId" name="searchId" placeholder="Enter Flight ID" required />
+  <button type="submit">Search</button>
+</form>
+
+<div *ngIf="searchAttempted">
+  <div *ngIf="foundFlight; else notFound">
+    <h3>Flight Details</h3>
+    <p><strong>ID:</strong> {{ foundFlight.id }}</p>
+    <p><strong>Flight Number:</strong> {{ foundFlight.flightNumber }}</p>
+    <p><strong>Departure Airport ID:</strong> {{ foundFlight.departureAirport?.id }}</p>
+    <p><strong>Arrival Airport ID:</strong> {{ foundFlight.arrivalAirport?.id }}</p>
+    <p><strong>Departure Time:</strong> {{ foundFlight.departureTime }}</p>
+    <p><strong>Arrival Time:</strong> {{ foundFlight.arrivalTime }}</p>
+    <p><strong>Seat Capacity:</strong> {{ foundFlight.seatCapacity }}</p>
+    <p><strong>Available Seats:</strong> {{ foundFlight.availableSeats }}</p>
+    <p><strong>Status:</strong> {{ foundFlight.status }}</p>
+  </div>
+  <ng-template #notFound>
+    <p style="color: red;">Flight not found.</p>
+  </ng-template>
+</div>
+
+<hr />
+
+<!-- List All Flights -->
+<h2>All Flights</h2>
+<table border="1" cellpadding="4">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Flight Number</th>
+      <th>Departure Airport ID</th>
+      <th>Arrival Airport ID</th>
+      <th>Departure Time</th>
+      <th>Arrival Time</th>
+      <th>Seat Capacity</th>
+      <th>Available Seats</th>
+      <th>Flight Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let flight of flights">
+      <td>{{ flight.id }}</td>
+      <td>{{ flight.flightNumber }}</td>
+      <td>{{ flight.departureAirport?.id }}</td>
+      <td>{{ flight.arrivalAirport?.id }}</td>
+      <td>{{ flight.departureTime }}</td>
+      <td>{{ flight.arrivalTime }}</td>
+      <td>{{ flight.seatCapacity }}</td>
+      <td>{{ flight.availableSeats }}</td>
+      <td>{{ flight.status }}</td>
+    </tr>
+  </tbody>
+</table>
+

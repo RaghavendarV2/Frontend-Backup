@@ -1,0 +1,66 @@
+
+<h2>Add Airports here: </h2>
+<form (ngSubmit)="addAirport()" #airportForm="ngForm">
+    <label for="airportCode">Airport code:</label>
+    <input id="airportCode" name="airportCode" [(ngModel)]="newAirport.code" required />
+    <br />
+
+    <label for="airportName">Airport name:</label>
+    <input id="airportName" name="airportName" [(ngModel)]="newAirport.name" required />
+    <br />
+
+    <label for="airportCity">Airport city:</label>
+    <input id="airportCity" name="airportCity" [(ngModel)]="newAirport.city" required />
+    <br />
+
+    <label for="airportCountry">Airport country:</label>
+    <input id="airportCountry" name="airportCountry" [(ngModel)]="newAirport.country" required />
+    <br />
+
+    <button type="submit">Add Airport</button>
+</form>
+
+
+<br />
+<br />
+
+<h2>List of all airports</h2>
+
+<table border="1" cellpadding="4">
+    <thead>
+        <tr>
+            <th> Airport ID </th>
+            <th> Code </th>
+            <th> Name </th>
+            <th> City </th>
+            <th> Country </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let airport of airports">
+            <td> {{airport.id}}</td>
+            <td> {{airport.code}}</td>
+            <td> {{airport.name}}</td>
+            <td> {{airport.city}}</td>
+            <td> {{airport.country}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<br />
+<br />
+<h2> Search airport by id: </h2>
+<form (ngSubmit)="getAirportById()" #getAiport="ngForm">
+    <label> Enter Aiport Id </label>
+        <input name="searchid" [(ngModel)]="searchId">
+        <button type="submit"> Search </button>
+    
+</form>
+<div *ngIf="searchAttempted">
+    <h3> Aiport details: </h3>
+    <p><strong> ID: </strong>{{foundAirport?.id}}</p>
+    <p><strong> Airport name: </strong>{{foundAirport?.name}}</p>
+    <p><strong> Airport Code: </strong>{{foundAirport?.code}}</p>
+    <p><strong> Airport City: </strong>{{foundAirport?.city}}</p>
+    <p><strong> Airport country: </strong>{{foundAirport?.country}}</p>
+</div>
